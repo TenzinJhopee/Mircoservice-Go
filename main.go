@@ -8,25 +8,14 @@ import (
 )
 
 func main(){
+	l := log.New(os.Stdout, "product-api", log.LstdFlags)
+	hh := handlers.NewHello(l)
 
-	http.HandleFunc("/", func(rw http.ResponseWriter, r*http.Request) {
-		log.Println("Hello WOrld")
-		d, err := ioutil.ReadAll(r.Body)
+	sm := http.NewServeMux()
+	sm.Handle("/", hh)
+	fmt.Println("hiii")
 
-		if err != nil {
-			
-			http.Error(rw, "Ooops", http.StatusBadRequest)
-			return 
-		}
-
-
-		fmt.Fprintf(rw, "Hello %s", d)
-	})
-	
-	http.HandleFunc("/goodbye", func(http.ResponseWriter, *http.Request) {
-		log.Println("Good byE")
-	})
-	
+	http.HandleFunc()
 
 	http.ListenAndServe(":9090", nil)
 }
